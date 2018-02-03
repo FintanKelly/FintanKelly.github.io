@@ -30,42 +30,42 @@
 	<div class="collapse navbar-collapse" id="navbarNavDropdown">
 		<ul class="navbar-nav">
 			<li class="nav-item active">
-				<a class="nav-link" onclick="toggleSection('home');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+				<a class="nav-link" onclick="toggleSection('home');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#home">
 				Home <span class="sr-only">(current)</span>
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" onclick="toggleSection('about');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+				<a class="nav-link" onclick="toggleSection('about');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#about">
 				About
 				</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" onclick="toggleSection('contact-me');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+				<a class="nav-link" onclick="toggleSection('contact-me');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#contact-me">
 				Contact Me
 				</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Tutorials
 				</a>
 					<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
 						<a class="dropdown-item text-white" onclick="toggleSection('java');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
 						Java
 						</a>
-						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+						<a class="dropdown-item text-white" onclick="toggleSection('jass');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
 						JASS
 						</a>
-						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
-						Macroquest
+						<a class="dropdown-item text-white" onclick="toggleSection('macroquest2');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+						Macroquest2
 						</a>
-						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+						<a class="dropdown-item text-white" onclick="toggleSection('writing');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
 						Writing
 						</a>
 					</div>
 			</li>
 		</ul>
 	</div>
-	</nav>
+</nav>
 
 <br></br><br></br>
 
@@ -98,6 +98,52 @@
 
 <section class="toggle" style="display:none" id="java">
 	<div class="container text-center">
+
+	</div>
+</section>
+
+<section class="toggle" style="display:none" id="jass">
+	<div class="container text-center">
+
+	</div>
+</section>
+
+<section class="toggle" style="display:none" id="macroquest2">
+	<div class="container text-center">
+		<div class="card text-white bg-dark mb-3 d-inline-block" style="max-width: 20rem;">
+			<div class="card-header"></div>
+				<div class="card-body">
+					<h4 class="card-title"><a href="#" onclick="toggleSection('mq2-intro');">Macroquest2</a></h4>
+					<p class="card-text">I'll move you through using the MQ2Melee plugin and then macros in general. This guide assumes that you know what MQ2 is and have general knowledge of its uses.</p>
+				</div>
+		</div>
+	</div>
+</section>
+
+	<section class="toggle" style="display:none" id="mq2-intro">
+		<div class="container text-center">
+			<p class="display-4 font-weight-bold">Introduction to Macroquest2</p>
+			<ul class="list-unstyled"><h1>Required Materials:</h1>
+				<li><h4>Text Editor: <a href="https://notepad-plus-plus.org/">Notepad++</h4></a></li>
+				<li><h4>MQ2 Program: <a href="http://mqemulator.net/downloads.php">Download</h4></a></li>
+			</ul>
+		</div>
+		<div class="container">
+			<h4>Section 1: MQ2Melee</h4>
+			<p>MQ2Melee automation focuses mainly on two elements: holyshits and downshits.</p>
+			<p>Holyshits: These run when you are in combat.</p>
+			<p>Downshits: These run when you are out of combat.</p>
+			<br></br>
+			<p>However before we get to these, I want to make sure that you have a .ini file ready to edit. These files have a naming convention: &#39&ltServer Short Name&gt_&ltCharacter Name&gt.ini&#39</p>
+			<p>You can force MQ2Melee to make a .ini file by typing in &#39/melee save&#39</p>
+			<p>This is what it looks like:</p>
+			<img src="images/tutorials/mq2-tutorials/mq2-intro/mq2melee-basic.png" class="img-fluid" alt="MQ2Melee Ini Example">
+		</div>
+	</section>
+
+<section class="toggle" style="display:none" id="writing">
+	<div class="container text-center">
+
 	</div>
 </section>
 </body>

@@ -15,6 +15,10 @@ li {
 	list-style-type: none;
 }
 
-li a {
+li a, a{
 	color: white;
+}
+
+p {
+	font-size: 20px;
 }

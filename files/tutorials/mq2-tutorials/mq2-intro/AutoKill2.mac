@@ -1,0 +1,84 @@
+|#event Backstab "You backstab #1# for #2# points of damage."
+
+sub main
+	/declare longKill timer
+	/declare curZone string
+	/declare notValid string
+	/declare npcID int
+	/declare i int
+
+	/varset notValid /Norrath`s Keepers Guard/Tatsujiro the Serene/Caridwi/Furious Sentry/The Butler/Velden Dragonbane/Vkjen Thunderslayer/King Tormax/The Avatar of War/a cursed pirate/a sea turtle/Jaques the Infected/a tortured sailor/Smoot/Gordish Frozenheart/Kessdona the Enlightened/Rikkukin the Defender/Gesh`kru/
+
+	/varset curZone ${Zone}
+
+	:WaitForRespawns
+
+	/if (${SpawnCount[npc]}>0) {
+		:NextSpawn
+
+		/if (!${String[${Zone}].Equal[${curZone}]}) /return
+
+		/for i 1 to ${SpawnCount}
+			/vardata npcID NearestSpawn[${i}].ID
+
+			/if ((${npcID}!=${Me.ID}) && (${Spawn[${npcID}].Type.Equal[NPC]})) {
+				/if ((${notValid.Find[/${Spawn[${npcID}].CleanName}/]}==NULL) && (${Spawn[${npcID}].CleanName.Length}>0)) {
+					/target id ${npcID}
+
+					/if (!${longKill}) {
+						/call warpTarget 0
+					} else {
+						/call warpTarget 1
+					}
+
+					:Retarget
+
+					/target clear
+					/delay 5
+					/target id ${npcID}
+					/delay 1s ${Target.Distance}<10
+					/stick 7 moveback
+					/attack on
+
+					/varset longKill 8s
+
+					:WaitForDead
+
+					/face fast nolook
+
+					/doevents
+
+					/if (${String[${Me.Class}].Equal[Rogue]}) {
+						/if (${Me.AbilityReady[Backstab]}) /doability Backstab
+						/if (${String[${Me.Song[Thief's Eyes]}].Equal[NULL]}) /doability "Thief's Eyes"
+					}
+					
+					/if (${String[${Me.Class}].Equal[Druid]}) {
+						/casting "Galatine"
+						/delay 4
+					}
+					
+					/if ((${Target.Type.Equal[CORPSE]}) || (!${longKill})) /target clear
+					/if (${Target.Distance}>50) /call warpTarget 0
+
+					/if (${Target.ID}==${npcID}) /goto :WaitForDead
+
+					/goto :NextSpawn
+				}
+			}
+		/next i
+	}
+
+	/delay 5s
+
+	/goto :WaitForRespawns
+/return
+
+
+sub warpTarget(boolWithDistance)
+	/if (${boolWithDistance}) {
+		/warp loc ${Math.Calc[${Target.Y}-2]} ${Math.Calc[${Target.X}-2]} ${Target.Z}
+	} else {
+		/warp target
+	}
+/return

@@ -39,12 +39,17 @@
 				About
 				</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" onclick="toggleSection('contact-me');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+				Contact Me
+				</a>
+			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				Tutorials
 				</a>
 					<div class="dropdown-menu bg-dark" aria-labelledby="navbarDropdownMenuLink">
-						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+						<a class="dropdown-item text-white" onclick="toggleSection('java');" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
 						Java
 						</a>
 						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
@@ -52,6 +57,9 @@
 						</a>
 						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
 						Macroquest
+						</a>
+						<a class="dropdown-item text-white" data-toggle="collapse" data-target=".navbar-collapse.show" href="#">
+						Writing
 						</a>
 					</div>
 			</li>
@@ -62,8 +70,9 @@
 <br></br><br></br>
 
 <section class="toggle" id="home">
-	<div class="container">
-		<p class="display-4 text-center">Choose a section in the top left navigation bar.</p>
+	<div class="container text-center">
+		<p class="display-4">Welcome!</p>
+		<p class="display-4">Choose a section in the top left navigation bar.</p>
 	</div>
 </section>
 
@@ -77,5 +86,19 @@
 	</div>
 </section>
 
+<section class="toggle" style="display:none" id="contact-me">
+	<div class="container text-center">
+		<img src="images/contact-me/email-64.png" class="img-fluid" alt="Email">
+		<li><a href="mailto:fintan.t.kelly@gmail.com">fintan.t.kelly@gmail.com</a></li>
+		<br></br>
+		<img src="images/contact-me/phone-64.png" class="img-fluid" alt="Phone Number">
+		<p class="text-white" style="margin-top:10px">(540)-454-7317</p>
+	</div>
+</section>
+
+<section class="toggle" style="display:none" id="java">
+	<div class="container text-center">
+	</div>
+</section>
 </body>
 </html>

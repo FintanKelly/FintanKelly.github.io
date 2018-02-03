@@ -1,3 +1,4 @@
+// This searches for any element with the 'toggle' class and either hides or unhides it.
 function toggleSection(id) {
 	if (document.getElementById(id)) {
 		var divID = document.getElementById(id);

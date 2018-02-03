@@ -2,6 +2,7 @@ body {
 	background: gray;
 }
 
+// This makes sure the nav bar sticks as the screen scrolls.
 nav {
 	width: 100%;
 	position: fixed !important;

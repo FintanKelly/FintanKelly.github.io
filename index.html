@@ -12,6 +12,9 @@
 	<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	<script src="jquery/jquery-3.3.1.min.js"></script>
 	<script src="bootstrap/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="highlightjs/styles/atom-one-dark.css">
+	<script src="highlightjs/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
 
 	<!-- Personal Imports -->
 	<link rel="stylesheet" href="style.css">
@@ -84,11 +87,11 @@
 		<br></br>
 		<p>Hello! I'm Fintan Kelly, and this tiny website houses some of the tutorials I've made on various programming languages, applications, games, etc.</p>
 		<p>Hopefully you can find something that interests you, but if not, feel free to contact me about a specific topic!</p>
-		<li><a href="mailto:fintan.t.kelly@gmail.com">fintan.t.kelly@gmail.com</a></li>
 		<br></br>
 		<ul class="list-unstyled"><p>Website Resources:</p>
 			<li><p><a href="https://v4-alpha.getbootstrap.com/" target="_blank">Bootstrap 4</a></p></li>
-			<li><p><a href="https://www.flaticon.com/" target="_blank">Icons and Vectors</a></p></li>
+			<li><p><a href="https://www.flaticon.com/" target="_blank">Flaticon</a></p></li>
+			<li><p><a href="https://highlightjs.org/" target="_blank">highlight.js</a></p></li>
 		</ul>
 	</div>
 </section>
@@ -107,13 +110,13 @@
 
 <section class="toggle" style="display:none;" id="java">
 	<div class="container text-center">
-
+		<p class="display-4">I'm working on adding tutorials now!</p>
 	</div>
 </section>
 
 <section class="toggle" style="display:none;" id="jass">
 	<div class="container text-center">
-
+		<p class="display-4">I'm working on adding tutorials now!</p>
 	</div>
 </section>
 
@@ -153,11 +156,11 @@
 			<img src="tutorials/mq2-tutorials/mq2-intro/mq2melee-basic.png" class="mx-auto d-block img-fluid" alt="MQ2Melee Ini Example">
 			<br></br>
 			<p>So now that we have a file to edit, let's start working on the holy/downshits. To enable them, we follow the same style as the other elements in the file: </p>
-			<p>downflag&lt0-63&gt=1</p>
-			<p>holyflag&lt0-63&gt=1</p>
+			<pre><code class="Ini">downflag&lt0-63&gt=1</code></pre>
+			<pre><code class="Ini">holyflag&lt0-63&gt=1</code></pre>
 			<p></p>
 			<p>Just to make sure, here is an example:</p>
-			<p>holyshit0=/echo Hello Spam</p>
+			<pre><code class="Ini">holyshit0=/echo Hello Spam</code></pre>
 			<p>Note: This will probably create a lot of spam, so you probably won't want to enter combat with this still active.</p>
 			<p></p>
 			<p>The next part is probably the hardest because you have access to everything MQ2 can do. I'm going to try and cover some of the common uses and let you take it from there.</p>
@@ -169,32 +172,32 @@
 			<br></br>
 			<p>The commands to use the abilities here are &#39/doability&lt1-6&gt.&#39 So if I wanted to use Intimidation, then I would type &#39/doability 1.&#39</p>
 			<p>And since we only want to use this during combat, we'll want to use a holyshit:</p>
-			<p>holyshit0=/doability 1</p>
+			<pre><code class="Ini">holyshit0=/doability 1</code></pre>
 			<p>This is just part one complete though. The big problem with it now is that MQ2Melee will continuously try to use the ability even if it's on cooldown. We don't want that, so we need a way to tell it to only use the ability when it's ready. This involves using what's called an if-statement:</p>
-			<p>holyshit0=/if (${Me.AbilityReady[Intimidation]} /doability 1)</p>
+			<pre><code class="Ini">holyshit0=/if (${Me.AbilityReady[Intimidation]} /doability 1)</code></pre>
 			<p>I won't get into the nitty-gritty details of what exactly happens here, but essentially this if-statement checks to see if Intimidation is ready to use. If it is, then it will use the ability and wait until it's off cooldown again.</p>
 			<p></p>
 			<p>Now what if we only want to use this ability when the mob is low on hp? Luckily, there are also ways to tell how much health your target has.</p>
-			<p>holyshit0=/if (${Me.AbilityReady[Initmidation]} && (${Target.PctHPs} &lt= 25)) /doability 1</p>
+			<pre><code class="Ini">holyshit0=/if (${Me.AbilityReady[Initmidation]} && (${Target.PctHPs} &lt= 25)) /doability 1</code></pre>
 			<p>MQ2Melee will now only use the ability when it's ready and if the target is at, or below, 25% hp.</p>
 			<br></br>
 			<h4>Section 1b: Combat Abilities</h4>
 			<p>These are what people typically call Disciplines, or Discs.</p>
 			<p>The methodology behind these is very similar to what we just did. For my example, I'll be using the Cleaving Anger disc:</p>
-			<p>/disc Cleaving Anger Discipline</p>
+			<pre><code class="">/disc Cleaving Anger Discipline</code></pre>
 			<p>This is the command to actually use the disc, but typically we only want to use this when we're fighting a named:</p>
-			<p>holyshit1=/if (${Me.CombatAbilityReady[Cleaving Anger Discipline]} && ${Target.Name.Find[#]}) /disc Cleaving Anger Discipline</p>
+			<pre><code class="Ini">holyshit1=/if (${Me.CombatAbilityReady[Cleaving Anger Discipline]} && ${Target.Name.Find[#]}) /disc Cleaving Anger Discipline</code></pre>
 			<p>The first part of this if-statement checks to see if the disc is ready to use, much like Intimidation. The second part checks to see if the mob has the &#39#&#39 symbol in his name. This usually indicates a named mob.</p>
 			<br></br>
 			<h4>Section 1c: Alt Abilities</h4>
 			<p>These are just AAs. These follow essentially the same style as using the discs:</p>
-			<p>holyshit2=/if (${Me.AltAbilityReady[Boastful Bellow]}) /casting &quotBoastful Bellow&quot alt</p>
+			<pre><code class="Ini">holyshit2=/if (${Me.AltAbilityReady[Boastful Bellow]}) /casting &quotBoastful Bellow&quot alt</code></pre>
 			<p>Hopefully this looks pretty familiar. The if-statement checks to see if Boastful Bellow is ready. The command we use after is the new part.</p>
 			<p>The /casting command is a feature of the MQ2Cast plugin, and it is much more reliable than the native EQ commands to activate AAs. The &#39alt&#39 at the end tells MQ2Cast that what we're trying to cast is an alt abilitiy.</p>
 			<br></br>
 			<h4>Section 1d: Items</h4>
 			<p>The last aspect I'll focus on here is items. And they follow much the same style as we're used to:</p>
-			<p>holyshit3=/if (${Cast.Ready[The Composer]}) /casting &quotThe Composer&quot item</p>
+			<pre><code class="Ini">holyshit3=/if (${Cast.Ready[The Composer]}) /casting &quotThe Composer&quot item</code></pre>
 			<p>The main difference here is that instead of looking at &#39Me&#39, we're using &#39Cast.&#39 This lets the MQ2Cast plugin check to see if the item is ready to cast.</p>
 			<br></br>
 			<p>If you want to see the full example, then I have it at the top of the page as a download link.</p>
@@ -206,7 +209,7 @@
 
 <section class="toggle" style="display:none;" id="writing">
 	<div class="container text-center">
-
+		<p class="display-4">I'm working on adding tutorials now!</p>
 	</div>
 </section>
 </body>

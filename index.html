@@ -139,17 +139,13 @@
 				<div class="col">
 					<ul class="list-unstyled"><h2>Section Links:</h4>
 						<li><h4><a href="#mq2-intro-section1">Section 1: MQ2Melee</a></h4></li>
-						<li><h4><a href="#mq2-intro-section1a">Section 1a: Abilities</a></h4></li>
-						<li><h4><a href="#mq2-intro-section1b">Section 1b: Combat Abilities</a></h4></li>
-						<li><h4><a href="#mq2-intro-section1c">Section 1c: Alt Abilities</a></h4></li>
-						<li><h4><a href="#mq2-intro-section1d">Section 1d: Items</a></h4></li>
 					</ul>
 				</div>
 				<div class="col">
 					<ul class="list-unstyled"><h2>Required Materials:</h4>
 						<li><h4><a href="https://notepad-plus-plus.org/" target="_blank">Notepad++</a></h4></li>
 						<li><h4><a href="http://mqemulator.net/downloads.php" target="_blank">MQ2 Program</a></h4></li>
-						<li><h4><a href="tutorials/mq2-tutorials/mq2-intro/Xais_Vixenary.ini" target="_blank">MQ2Melee Ini Example</a></h4></li>
+						<li><h4><a href="tutorials/mq2-tutorials/mq2-intro/Xais_Vixenary.ini" target="_blank">MQ2Melee ini Example</a></h4></li>
 						<li><h4><a href="tutorials/mq2-tutorials/mq2-intro/AutoKill.mac" target="_blank">Autokill Macro Example</a></h4></li>
 					</ul>
 				</div>
@@ -158,15 +154,23 @@
 		<br></br>
 		<div class="container">
 			<h4 id="mq2-intro-section1">Section 1: MQ2Melee</h4>
+			<ul class="list-inline"><p style="font-size: 20px;">Subsection Links:</p>
+				<li class="list-inline-item"><p><a href="#mq2-intro-section1a">Section 1a: Abilities</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1b">Section 1b: Combat Abilities</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1c">Section 1c: Alt Abilities</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1d">Section 1d: Items</a></p></li>
+			</ul>
+			<br></br>
 			<p>MQ2Melee automation focuses mainly on two elements: holyshits and downshits.</p>
 			<p>Holyshits: These run when you are in combat.</p>
 			<p>Downshits: These run when you are out of combat.</p>
 			<br></br>
 			<p>However before we get to these, I want to make sure that you have a .ini file ready to edit. These files have a naming convention:</p>
-			<p>&#39&ltServer Short Name&gt_&ltCharacter Name&gt.ini&#39</p>
+			<pre><code class="ini">&ltServer Short Name&gt_&ltCharacter Name&gt.ini
+Ex: Xais_Vixenary.ini</code></pre>
 			<p>You can force MQ2Melee to make a .ini file by typing in &#39/melee save&#39 and will be saved in your main MQ2 folder.</p>
 			<p>It will look something like this:</p>
-			<pre><code class="Ini">[MQ2Melee]
+			<pre><code class="ini">[MQ2Melee]
 aggro = 1
 bash = 1
 disarm = 1
@@ -190,12 +194,11 @@ taunt = 1
 version = 6.020
 			</code></pre>
 			<p>So now that we have a file to edit, let's start working on the holy/downshits. To enable them, we follow the same style as the other elements in the file: </p>
-			<pre><code class="Ini">downflag&lt0-63&gt = 1
-holyflag&lt0-63&gt = 1
-			</code></pre>
+			<pre><code class="ini">downflag&lt0-63&gt = 1
+holyflag&lt0-63&gt = 1</code></pre>
 			<p></p>
 			<p>Just to make sure, here is an example:</p>
-			<pre><code class="Ini">holyshit0 = /echo Hello Spam</code></pre>
+			<pre><code class="ini">holyshit0 = /echo Hello Spam</code></pre>
 			<p>Note: This will probably create a lot of spam, so you probably won't want to enter combat with this still active.</p>
 			<p></p>
 			<p>The next part is probably the hardest because you have access to everything MQ2 can do. I'm going to try and cover some of the common uses and let you take it from there.</p>
@@ -207,13 +210,13 @@ holyflag&lt0-63&gt = 1
 			<br></br>
 			<p>The commands to use the abilities here are &#39/doability&lt1-6&gt.&#39 So if I wanted to use Intimidation, then I would type &#39/doability 1.&#39</p>
 			<p>And since we only want to use this during combat, we'll want to use a holyshit:</p>
-			<pre><code class="Ini">holyshit0 = /doability 1</code></pre>
+			<pre><code class="ini">holyshit0 = /doability 1</code></pre>
 			<p>This is just part one complete though. The big problem with it now is that MQ2Melee will continuously try to use the ability even if it's on cooldown. We don't want that, so we need a way to tell it to only use the ability when it's ready. This involves using what's called an if-statement:</p>
-			<pre><code class="Ini">holyshit0 = /if (${Me.AbilityReady[Intimidation]} /doability 1)</code></pre>
+			<pre><code class="ini">holyshit0 = /if (${Me.AbilityReady[Intimidation]} /doability 1)</code></pre>
 			<p>I won't get into the nitty-gritty details of what exactly happens here, but essentially this if-statement checks to see if Intimidation is ready to use. If it is, then it will use the ability and wait until it's off cooldown again.</p>
 			<p></p>
 			<p>Now what if we only want to use this ability when the mob is low on hp? Luckily, there are also ways to tell how much health your target has.</p>
-			<pre><code class="Ini">holyshit0 = /if (${Me.AbilityReady[Initmidation]} && (${Target.PctHPs} &lt= 25)) /doability 1</code></pre>
+			<pre><code class="ini">holyshit0 = /if (${Me.AbilityReady[initmidation]} && (${Target.PctHPs} &lt= 25)) /doability 1</code></pre>
 			<p>MQ2Melee will now only use the ability when it's ready and if the target is at, or below, 25% hp.</p>
 			<br></br>
 			<h4 id="mq2-intro-section1b">Section 1b: Combat Abilities</h4>
@@ -221,18 +224,18 @@ holyflag&lt0-63&gt = 1
 			<p>The methodology behind these is very similar to what we just did. For my example, I'll be using the Cleaving Anger disc:</p>
 			<pre><code class="">/disc Cleaving Anger Discipline</code></pre>
 			<p>This is the command to actually use the disc, but typically we only want to use this when we're fighting a named:</p>
-			<pre><code class="Ini">holyshit1 = /if (${Me.CombatAbilityReady[Cleaving Anger Discipline]} && ${Target.Name.Find[#]}) /disc Cleaving Anger Discipline</code></pre>
+			<pre><code class="ini">holyshit1 = /if (${Me.CombatAbilityReady[Cleaving Anger Discipline]} && ${Target.Name.Find[#]}) /disc Cleaving Anger Discipline</code></pre>
 			<p>The first part of this if-statement checks to see if the disc is ready to use, much like Intimidation. The second part checks to see if the mob has the &#39#&#39 symbol in his name. This usually indicates a named mob.</p>
 			<br></br>
 			<h4 id="mq2-intro-section1c">Section 1c: Alt Abilities</h4>
 			<p>These are just AAs. These follow essentially the same style as using the discs:</p>
-			<pre><code class="Ini">holyshit2 = /if (${Me.AltAbilityReady[Boastful Bellow]}) /casting &quotBoastful Bellow&quot alt</code></pre>
+			<pre><code class="ini">holyshit2 = /if (${Me.AltAbilityReady[Boastful Bellow]}) /casting &quotBoastful Bellow&quot alt</code></pre>
 			<p>Hopefully this looks pretty familiar. The if-statement checks to see if Boastful Bellow is ready. The command we use after is the new part.</p>
 			<p>The /casting command is a feature of the MQ2Cast plugin, and it is much more reliable than the native EQ commands to activate AAs. The &#39alt&#39 at the end tells MQ2Cast that what we're trying to cast is an alt abilitiy.</p>
 			<br></br>
 			<h4 id="mq2-intro-section1d">Section 1d: Items</h4>
 			<p>The last aspect I'll focus on here is items. And they follow much the same style as we're used to:</p>
-			<pre><code class="Ini">holyshit3 = /if (${Cast.Ready[The Composer]}) /casting &quotThe Composer&quot item</code></pre>
+			<pre><code class="ini">holyshit3 = /if (${Cast.Ready[The Composer]}) /casting &quotThe Composer&quot item</code></pre>
 			<p>The main difference here is that instead of looking at &#39Me&#39, we're using &#39Cast.&#39 This lets the MQ2Cast plugin check to see if the item is ready to cast.</p>
 			<br></br>
 			<p>If you want to see the full example, then I have it at the top of the page as a download link.</p>

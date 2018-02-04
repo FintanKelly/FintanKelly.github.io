@@ -137,16 +137,16 @@
 			<p class="font-weight-bold" style="font-size: 35px">Introduction to Macroquest2</p>
 			<div class="row justify-content-center">
 				<div class="col">
-					<ul class="list-unstyled"><h2>Required Materials:</h4>
-						<li><h4><a href="https://notepad-plus-plus.org/" target="_blank">Notepad++</a></h4></li>
-						<li><h4><a href="http://mqemulator.net/downloads.php" target="_blank">MQ2 Program</a></h4></li>
-						<li><h4><a href="tutorials/mq2-tutorials/mq2-intro/Xais_Vixenary.ini" target="_blank">MQ2Melee ini Example</a></h4></li>
-						<li><h4><a href="tutorials/mq2-tutorials/mq2-intro/AutoKill.mac" target="_blank">Autokill Macro Example</a></h4></li>
+					<ul class="list-unstyled"><h3>Required Materials:</h3>
+						<li><p style="font-size: 20px;"><a href="https://notepad-plus-plus.org/" target="_blank">Notepad++</a></p></li>
+						<li><p style="font-size: 20px;"><a href="http://mqemulator.net/downloads.php" target="_blank">MQ2 Program</a></p></li>
+						<li><p style="font-size: 20px;"><a href="tutorials/mq2-tutorials/mq2-intro/Xais_Vixenary.ini" target="_blank">MQ2Melee ini Example</a></p></li>
+						<li><p style="font-size: 20px;"><a href="tutorials/mq2-tutorials/mq2-intro/AutoKill.mac" target="_blank">Autokill Macro Example</a></p></li>
 					</ul>
 				</div>
 				<div class="col">
-					<ul class="list-unstyled"><h2>Section Links:</h4>
-						<li><h4><a href="#mq2-intro-section1">Section 1: MQ2Melee</a></h4></li>
+					<ul class="list-unstyled"><h3>Section Links:</h3>
+						<li><p style="font-size: 20px;"><a href="#mq2-intro-section1">Section 1: MQ2Melee</a></p></li>
 					</ul>
 				</div>
 			</div>
@@ -154,12 +154,12 @@
 		<br></br>
 		<div class="container">
 			<h4 class="text-center" id="mq2-intro-section1">Section 1: MQ2Melee</h4>
-			<ul class="list-inline text-center"><p style="font-size: 20px;">Subsection Links:</p>
-				<li class="list-inline-item"><p><a href="#mq2-intro-section1a">Section 1a: Introduction</a></p></li>||
-				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1b">Section 1b: Abilities</a></p></li>||
-				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1c">Section 1c: Combat Abilities</a></p></li>||
-				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1d">Section 1d: Alt Abilities</a></p></li>||
-				<li class="list-inline-item"><p style="margin-left: 4px;"><a href="#mq2-intro-section1e">Section 1e: Items</a></p></li>
+			<ul class="list-inline text-center">
+				<li class="list-inline-item"><p style="font-size: 16px;"><a href="#mq2-intro-section1a">Section 1a: Introduction</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px; font-size: 16px;"><a href="#mq2-intro-section1b">Section 1b: Abilities</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px; font-size: 16px;"><a href="#mq2-intro-section1c">Section 1c: Combat Abilities</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px; font-size: 16px;"><a href="#mq2-intro-section1d">Section 1d: Alt Abilities</a></p></li>||
+				<li class="list-inline-item"><p style="margin-left: 4px; font-size: 16px;"><a href="#mq2-intro-section1e">Section 1e: Items</a></p></li>
 			</ul>
 			<br></br>
 			<h4 class="text-center" id="mq2-intro-section1a">Section 1a: Introduction</h4>
@@ -198,8 +198,9 @@ version = 6.020</code></pre>
 			<pre><code class="ini">downflag&lt0-63&gt = 1
 holyflag&lt0-63&gt = 1</code></pre>
 			<p></p>
-			<p>Just to make sure, here is an example:</p>
-			<pre><code class="ini">holyshit0 = /echo Hello Spam</code></pre>
+			<p>Make sure that you enable the flag for the corresponding holy/downshit. Here is an example:</p>
+			<pre><code class="ini">holyflag0 = 1
+holyshit0 = /echo Hello Spam</code></pre>
 			<p>Note: This will probably create a lot of spam, so you probably won't want to enter combat with this still active.</p>
 			<p></p>
 			<p>The next part is probably the hardest because you have access to everything MQ2 can do. I'm going to try and cover some of the common uses and let you take it from there.</p>

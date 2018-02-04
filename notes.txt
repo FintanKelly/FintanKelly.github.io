@@ -1,0 +1,5 @@
+Ideas:
+- Create some sort of code-bubble style for when I'm referencing specific commands, functions, etc.
+	Ex: holyshit0=/doability 1 instead of being regular <p> text, use a white rounded rectangle and make it stand out a bit.
+- I probably need images for Abilities, CAs, AAs, and Items for the MQ2 tutorial.
+- I should find a way to add a table of contents to the top so I can make links to jump to different sections.

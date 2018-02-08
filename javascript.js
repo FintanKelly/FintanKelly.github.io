@@ -1,3 +1,6 @@
+// Global Variables
+var sectionLoaded = "";
+
 // This searches for any element with the 'toggle' class and either hides or unhides it.
 function toggleSection(id) {
 	if (document.getElementById(id)) {
@@ -9,6 +12,17 @@ function toggleSection(id) {
 		}
 
 		divID.style.display = "block";
+	}
+
+	return false;
+}
+
+function toggleSection2(id) {
+	if (document.getElementById(id)) {
+		$(sectionLoaded).unload(sectionLoaded + '.html');
+
+		sectionLoaded = '#' + id;
+		$(sectionLoaded).load(sectionLoaded + '.html');
 	}
 
 	return false;
@@ -38,3 +52,5 @@ $(document).on('click', 'a[href^="#"]', function(event) {
 
 // Set the offset when entering page with hash present in the url
 window.setTimeout(offsetAnchor, 0);
+
+$('#mq2-intro').load('mq2-intro.html');

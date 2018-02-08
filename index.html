@@ -145,6 +145,12 @@
 					</ul>
 				</div>
 				<div class="col">
+					<ul class="list-unstyled"><h3>Useful Materials:</h3>
+						<li><p style="font-size: 20px;"><a href="https://www.macroquest2.com/wiki/index.php/Main_Page" target="_blank">MQ2 Wiki</a></p></li>
+						<li><p style="font-size: 20px;"><a href="http://mqemulator.net/forum2/index.php" target="_blank">Helpful MQ2 Forum</a></p></li>
+					</ul>
+				</div>
+				<div class="col">
 					<ul class="list-unstyled"><h3>Section Links:</h3>
 						<li><p style="font-size: 20px;"><a href="#mq2-intro-section1">Section 1: MQ2Melee</a></p></li>
 						<li><p style="font-size: 20px;"><a href="#mq2-intro-section2">Section 2: Macros</a></p></li>
@@ -251,11 +257,141 @@ holyshit0 = /echo Hello Spam</code></pre>
 			<p>Note: If you're familiar with the /multiline command, then you can use it to string together a bunch of commands for using things like timers.</p>
 			<br></br><br></br>
 			<h4 class="text-center" id="mq2-intro-section2">Section 2: Macros</h4>
-			<p>This section could fill around 100 posts with all the different kinds of things you can do with macros, but for time sake, I’m going to keep it short and look at Xyph’s Autokill2 macro. You can find the macro at the top in the &#39Required Materials&#39 section.</p>
+			<p>This section could fill around 100 sections with all the different kinds of things you can do with macros, but for time sake, I’m going to keep it short and look at Xyph’s Autokill2 macro. You can find the macro at the top in the &#39Required Materials&#39 section.</p>
 			<p></p>
-			<p>I'll try to work you through the macro by splitting it into sections.</p>
-			<pre><code class="">|#event Backstab "You backstab #1# for #2# points of damage."</code></pre>
-			<p>This first line at the top references what we call events. Since Xyph actually commented out (denoted by the &#39 | &#39), I'll leave it at that for now.</p>
+			<p>I'll try to work you through the macro by splitting it into sections. To give a brief overview of what the macro does, it checks the zone for any mobs to kill, then makes sure it's not on the blackist, then starts warping to it and killing it. It does this until we manually end the macro with &#39/endmacro.&#39</p>
+			<br></br>
+			<pre><code class="ini">|#event Backstab "You backstab #1# for #2# points of damage."</code></pre>
+			<p>This first line at the top references what we call events. Since Xyph actually commented out (denoted by the &#39 | &#39) the event, I won't explain it too much. Essentially what this event checks for is when you've backstabbed something.</p>
+			<br></br>
+			<pre><code class="ini">sub main</code></pre>
+			<p>If you're familiar with programming, this is how we define where the macro starts. If you're not familiar with programming, this is where the magic happens.</p>
+			<br></br>
+			<pre><code class="ini">/declare longKill timer
+/declare curZone string
+/declare notValid string
+/declare npcID int
+/declare i int</code></pre>
+			<p>This is you might call the variable initiation section. In short terms, we're creating these variables (curZone, notValid, etc.) that are going to store information we want to remember throughout the macro. I'll explain what each does as we encounter it.</p>
+			<br></br>
+			<pre><code class="ini">/varset notValid /Norrath`s Keepers Guard/Tatsujiro the Serene/Caridwi/Furious Sentry/The Butler/Velden Dragonbane/Vkjen Thunderslayer/King Tormax/The Avatar of War/a cursed pirate/a sea turtle/Jaques the Infected/a tortured sailor/Smoot/Gordish Frozenheart/Kessdona the Enlightened/Rikkukin the Defender/Gesh`kru/</code></pre>
+			<p>This looks really confusing at first, but I promise it's not. This is where we're &quotsetting&quot notValid to hold a bunch of names. We use slashes in between each name so that we can easily tell the macro where each name starts and ends.</p>
+			<br></br>
+			<pre><code class="ini">/varset curZone ${Zone}</code></pre>
+			<p>This line is very similar to the last one. But here we're using what's called a TLO (Top-Level Object) &#39Zone&#39 to give us the name of the zone we're in. Then we're storing that for later use.</p>
+			<br></br>
+			<pre><code class="ini">:WaitForRespawns</code></pre>
+			<p>This is generally what every programmer wants to avoid using: a label. Unfortunately MQ2 doesn't come with native looping functionality other than the basic for-loop. So we can use this as a makeshift while-loop combined with an if-statement afterwards.</p>
+			<p>In general terms, this is how keep the macro going without exiting out early on us.</p>
+			<br></br>
+			<pre><code class="ini">/if (${SpawnCount[npc]}>0) {</code></pre>
+			<p>We dealt with this earlier in the MQ2Melee section. It functions exactly the same way as it did before: we're using another TLO here to check the number of NPC spawns in the zone we're in.</p>
+			<p>We want to do this to make sure there's something to actually kill when we run the macro.</p>
+			<br></br>
+			<pre><code class="ini">:NextSpawn</code></pre>
+			<p>This is another label that we're using to cycle through each mob in the zone. Once we kill one, the macro will jump back up here and move onto the next.</p>
+			<br></br>
+			<pre><code class="ini">/if (!${String[${Zone}].Equal[${curZone}]}) /return</code></pre>
+			<p>The if-statement here uses the variable we made before (curZone) to check against the zone we're currently in. If they don't match, then we want to stop the macro with &#39/return.&#39</p>
+			<br></br>
+			<pre><code class="ini">/for i 1 to ${SpawnCount}</code></pre>
+			<p>This is the for-loop I mentioned earlier. What's happening here is that we get the number of NPCs in the zone, and then we run the killing part of the macro that many times.</p>
+			<p>For example: if there are 10 mobs in the zone, this loop will run 10 times (or more technically, count from 1 to 10).</p>
+			<br></br>
+			<pre><code class="ini">/vardata npcID NearestSpawn[${i}].ID</code></pre>
+			<p>This is how we're finding the ID for the mob we want to kill. The &#39${i}&#39 is how we reference what number the loop is on, and this is what lets us go down the list.</p>
+			<br></br>
+			<pre><code class="ini">/if ((${npcID}!=${Me.ID}) && (${Spawn[${npcID}].Type.Equal[NPC]})) {</code></pre>
+			<p>The if-statement here is a logic check: we don't want the macro to target ourselves for obvious reasons, and we want to make sure that our intended target is a NPC we can kill.</p>
+			<br></br>
+			<pre><code class="ini">/if ((${notValid.Find[/${Spawn[${npcID}].CleanName}/]}==NULL) && (${Spawn[${npcID}].CleanName.Length}>0)) {</code></pre>
+			<p>It seems like Xyph split this check into two chunks to make it easier to understand. The purpose of this if-statement is to make sure our mob's name isn't on our blacklist and that its name is at least 1 character long.</p>
+			<p>The reason for checking this is because unkillable mobs typically have an empty name.</p>
+			<br></br>
+			<pre><code class="ini">/target id ${npcID}</code></pre>
+			<p>This is a simple slash command that MQ2 has to target a NPC based on its ID. And we stored that ID in &#39npcID&#39 earlier before the two if-statement checks.</p>
+			<br></br>
+			<pre><code class="ini">/if (!${longKill}) {
+	/call warpTarget 0
+} else {
+	/call warpTarget 1
+}</code></pre>
+			<p>We haven't quite gotten to the point where we set our timer &#39longKill,&#39 but if we haven't killed the mob in a certain period of time, then it most likely means we can't hit it. So we'll want to warp to him again.</p>
+			<p>We use this &#39/call warpTarget&#39 function at the end of the macro to actually warp to the mob. The &#39 0 &#39 or &#39 1 &#39 tells the macro whether we need to give some distance between the mob and ourselves.</p>
+			<br></br>
+			<pre><code class="ini">:Retarget
+
+/target clear
+/delay 5
+/target id ${npcID}
+/delay 1s ${Target.Distance}<10
+/stick 7 moveback
+/attack on
+
+/varset longKill 8s</code></pre>
+			<p>This section is where we start attacking the mob after we warp to it. The reason we clear our target at first is because EQ has a bug where you can't interact with a NPC you targeted from too far away. Then we stick to the mob and turn our attack on.</p>
+			<br></br>
+			<pre><code class="ini">:WaitForDead
+
+/face fast nolook</code></pre>
+			<p>We're using this label here to tell the macro to wait until we kill the mob. The &#39/face fast nolook&#39 command makes your character face the mob so you have a clear line of sight.</p>
+			<br></br>
+			<pre><code class="ini">/doevents</code></pre>
+			<p>This command relates to the commented out event we saw earlier. This tells MQ2 to execute any events that have queued up. There's usually a &#39sub&#39 or function to go with each event, but since it was commented out in this macro, there isn't one to reference, so nothing happens.</p>
+			<br></br>
+			<pre><code class="ini">/if (${String[${Me.Class}].Equal[Rogue]}) {
+	/if (${Me.AbilityReady[Backstab]}) /doability Backstab
+	/if (${String[${Me.Song[Thief's Eyes]}].Equal[NULL]}) /doability &quotThief&#39s Eyes&quot
+}</code></pre>
+			<p>This is a specialized part of the macro that only occurs if you're a Rogue. In the case that you are, the macro will use your Backstab for you and then Thief's Eyes.</p>
+			<p>Hopefully this looks familiar from the MQ2Melee section.</p>
+			<br></br>
+			<pre><code class="ini">/if (${String[${Me.Class}].Equal[Druid]}) {
+	/casting &quotGalatine&quot
+	/delay 4
+}</code></pre>
+			<p>This is another specialized section that checks to see if you're a Druid. If so, then it will cast Galatine for you.</p>
+			<br></br>
+			<pre><code class="ini">/if ((${Target.Type.Equal[CORPSE]}) || (!${longKill})) /target clear</code></pre>
+			<p>This is the part of the macro that checks to see if we need to move on to the next mob. If the one we're currently fighting is dead or our fighting timer has run out, then clear the target and find the nearest mob.</p>
+			<br></br>
+			<pre><code class="ini">/if (${Target.Distance}>50) /call warpTarget 0</code></pre>
+			<p>This is another check to make sure the mob hasn't warped or somehow gotten away from us. If it has, then we want to warp to it.</p>
+			<br></br>
+			<pre><code class="ini">/if (${Target.ID}==${npcID}) /goto :WaitForDead</code></pre>
+			<p>Here we want to make sure that we're not leaving the mob we're fighting alive. If our current target's ID matches the ID we saved at the beginning of the loop, then keep killing it.</p>
+			<p>The &#39/goto&#39 command is how we navigate to labels directly.</p>
+			<br></br>
+			<pre><code class="ini">/goto :NextSpawn</code></pre>
+			<p>This macro doesn't use any conditional checks to go to the top of the macro, so this serves as a constant label jump so the macro keeps running until no mobs are alive.</p>
+			<br></br>
+			<pre><code class="ini">/next i</code></pre>
+			<p>This just increments the for-loop to go from one number to the next.</p>
+			<br></br>
+			<pre><code class="ini">/delay 5s
+
+/goto :WaitForRespawns</code></pre>
+			<p>This delay command here lets the macro sleep for a few seconds to try and wait for some mobs to repop. Once it's waited 5 seconds, it will go to the top of the macro and check for mobs again.</p>
+			<br></br>
+			<pre><code class="ini">/return</code></pre>
+			<p>This is how we tell macros to close out, but since we want this macro to run until we manually stop it, the &#39/goto&#39 command prevents the macro from reaching the return.</p>
+			<br></br>
+			<pre><code class="ini">sub warpTarget(boolWithDistance)
+	/if (${boolWithDistance}) {
+		/warp loc ${Math.Calc[${Target.Y}-2]} ${Math.Calc[${Target.X}-2]} ${Target.Z}
+	} else {
+		/warp target
+	}
+/return</code></pre>
+			<p>This is what some people might call a helper function (or in our case a helper sub). It's called this because we use it to separate some commands or calculations we do multiple times into one function we can easily call in the main part of the macro.</p>
+			<p>To explain what it does, it's looking for a &#39 0 &#39 or a &#39 1 &#39 indicating a &#39no&#39 or a &#39yes.&#39 With that, it will either warp you to the mob with a little distance in between you (if given &#39yes&#39) or warp you right on top of the mob (if given &#39no&#39).</p>
+			<br></br><br></br>
+			<h4 class="text-center">Conclusion</h4>
+			<p></p>
+			<p>So that's my small rundown of MQ2Melee and an example macro. Hopefully you're able to better understand the intent behind some of the decisions made when making MQ2Melee holy/downshits and the methodology behind the macro.</p>
+			<p>There's an extensive amount of TLOs you can use to pull in various amounts of information to make some really interesting macros. I'll probably cover some specific ones that are very helpful in most macros in a different tutorial.</p>
+			<p>There's a list of useful resources at the top of the page if you'd like to look at the wiki for the different TLOs or learn more.</p>
+			<p>If you have any questions, feel free to contact me!</p>
 		</div>
 		<br></br>
 	</section>

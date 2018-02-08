@@ -38,6 +38,3 @@ $(document).on('click', 'a[href^="#"]', function(event) {
 
 // Set the offset when entering page with hash present in the url
 window.setTimeout(offsetAnchor, 0);
-
-// Run the navbar function
-window.onload = loadNavBar;

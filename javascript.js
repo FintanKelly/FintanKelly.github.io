@@ -14,6 +14,11 @@ function toggleSection(id) {
 	return false;
 }
 
+// Load the main navigation bar
+function loadNavBar() {
+	$("#navbar").load("navbar.html");
+}
+
 // Pulled from: https://stackoverflow.com/questions/17534661/make-anchor-link-go-some-pixels-above-where-its-linked-to
 // The function actually applying the offset
 function offsetAnchor() {
@@ -33,3 +38,6 @@ $(document).on('click', 'a[href^="#"]', function(event) {
 
 // Set the offset when entering page with hash present in the url
 window.setTimeout(offsetAnchor, 0);
+
+// Run the navbar function
+window.onload = loadNavBar;

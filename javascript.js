@@ -14,6 +14,10 @@ function toggleSection(id) {
 	return false;
 }
 
+function loadNavBar() {
+	$("#navbar").load("navbar.html");
+}
+
 // Pulled from: https://stackoverflow.com/questions/17534661/make-anchor-link-go-some-pixels-above-where-its-linked-to
 // The function actually applying the offset
 function offsetAnchor() {

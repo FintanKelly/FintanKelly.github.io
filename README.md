@@ -3,3 +3,4 @@ This is a small website I created to house some of the tutorials I've made for v
 Resources:
 Bootstrap 4: https://v4-alpha.getbootstrap.com/
 Icons and Vectors: https://www.flaticon.com/
+highlight.js: https://highlightjs.org/

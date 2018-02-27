@@ -17,17 +17,6 @@ function toggleSection(id) {
 	return false;
 }
 
-function toggleSection2(id) {
-	if (document.getElementById(id)) {
-		$(sectionLoaded).unload(sectionLoaded + '.html');
-
-		sectionLoaded = '#' + id;
-		$(sectionLoaded).load(sectionLoaded + '.html');
-	}
-
-	return false;
-}
-
 // Load the main navigation bar
 function loadNavBar() {
 	$("#navbar").load("navbar.html");
